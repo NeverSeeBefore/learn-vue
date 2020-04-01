@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+
+    <div v-bind:[attr]="type"></div>
+    <div>{{counter}}</div>
+    <p>
+      <button v-on:click="counter+=1">+1</button>
+      <span :text-content.prop="spanContent">--</span>
+      <button v-on:click="addCounter">+1</button>
+    </p>
+    <p>
+      <div>v-on 修饰符</div>
+      <div @click.self="alert('div')" :style="{backgroundColor: 'red'}">
+        <button @click="alert('button')">按钮</button>
+      </div>
+    </p>
+  </div>
+
+  <script>
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        type: "D",
+        attr: "a",
+        counter:0,
+        spanContent: "-----"
+      },
+      methods: {
+        addCounter(e){
+          this.counter += 1;
+          console.log(e, e.target);
+        },
+        alert(text){
+          window.alert(text);
+        }
+      }
+    })
+    
+  </script>
+</body>
+
+</html>
