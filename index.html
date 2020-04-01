@@ -11,19 +11,34 @@
 <body>
   <div id="app">
 
-    <div v-bind:[attr]="type"></div>
-    <div>{{counter}}</div>
-    <p>
-      <button v-on:click="counter+=1">+1</button>
-      <span :text-content.prop="spanContent">--</span>
-      <button v-on:click="addCounter">+1</button>
-    </p>
-    <p>
-      <div>v-on 修饰符</div>
-      <div @click.self="alert('div')" :style="{backgroundColor: 'red'}">
-        <button @click="alert('button')">按钮</button>
-      </div>
-    </p>
+    <span>数组</span>
+    <ul>
+      <li v-for="(person, index) in persons">{{person.name}}--{{person.age}}---{{index}}</li>
+    </ul>
+    <span>对象</span>
+    <ul>
+      <template v-for="(value, key, index) in persons[0]">
+        <li>{{key}}--{{value}}</li>
+        <span>--{{index}}</span>
+      </template>
+    </ul>
+    <span>数字</span>
+    <ul>
+      <li v-for="(value, key, index) in 5">{{key}}--{{value}}--{{index}}</li>
+    </ul>
+    <span>字符串</span>
+    <ul>
+      <li v-for="(value, key, index) in persons[0]">{{key}}--{{value}}--{{index}}</li>
+    </ul>
+    <span>列表渲染规则</span>
+    <ul>
+      <li v-for="(person, index) in persons" :key="person.name">
+        {{person.name}}
+        <input type="text">
+        <button @click="handleClick(index)">下移</button>
+      </li>
+    </ul>
+
   </div>
 
   <script>
@@ -31,22 +46,43 @@
     const vm = new Vue({
       el: '#app',
       data: {
-        type: "D",
-        attr: "a",
-        counter:0,
-        spanContent: "-----"
+        persons: [
+          {
+            name: "杉杉",
+            age: '18',
+            isActive: true
+          },
+          {
+            name: "成哥",
+            age: '20',
+            isActive: true
+          },
+          {
+            name: "老邓",
+            age: "8",
+            isActive: true
+          },
+          {
+            name: "思彤",
+            age: "23",
+            isActive: true
+          },
+          {
+            name: "小宇",
+            age: '18',
+            isActive: true
+          }
+        ]
       },
       methods: {
-        addCounter(e){
-          this.counter += 1;
-          console.log(e, e.target);
-        },
-        alert(text){
-          window.alert(text);
+        handleClick(index){
+          console.log(index);
+          const deleteItem = this.persons.splice(index, 1);
+          this.persons.splice(index + 1, 0, ...deleteItem);
         }
       }
     })
-    
+
   </script>
 </body>
 
