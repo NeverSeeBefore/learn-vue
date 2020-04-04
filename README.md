@@ -127,3 +127,15 @@ $watch()
   axios.interceptors.response.use((response) => {
     console.log(response);
   })
+
+# template
+
+  1. new Vue()
+  2. 看是否指定了el -- 如果指定了el，看是否有temlate；没有el时,等待vm.$mount(el)时，再检查是否有temlate
+  3. 有telplate时使用template，如果没有，使用el得到模板
+  4. 渲染
+  5. 挂载
+
+  el -> 获取el.outerHTML  -> 得到模板 => render渲染 -> 替换$el -> 变成真正的el
+
+  **template**
