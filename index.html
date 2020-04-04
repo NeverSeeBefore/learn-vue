@@ -7,91 +7,25 @@
   <title>Document</title>
   <script src="./vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <!-- <script src="./jquery.js"></script> -->
 </head>
 
 <body>
   <div id="app">
-    {{text}}
-    <div>{{msg}}  </div>
+    
   </div>
 
   <script>
-   
+
     const vm = new Vue({
       el: '#app',
       data: {
-       msg: 'hello world',
-       text: 'ttt'
-      },
-      beforeCreate(){
-        console.log('------beforeCreate-------');
-        console.log(this.msg);
-        console.log('----------------------');
-      },
-      created(){
-        console.log('------created-------');
-        console.log(this.msg);
-        console.log('$el',this.$el);
-        console.log('----------------------');
-        this.timer = setInterval(() => {
-          console.log(1);
-        }, 1000)
-      },
-      beforeMount(){
-        console.log('------beforeMount-------');
-        console.log(this.$el);
-        console.log('----------------------');
-      },
-      mounted(){
-        console.log('------mounted-------');
-        console.log(this.$el);
-        console.log('----------------------');
-      },
-      beforeUpdate(){
-        console.log('------beforeUpdate-------');
-        console.log(this.msg);
-        console.log(this.$el.outerHTML);
-        console.log('----------------------');
-      },
-      updated(){
-        console.log('------updated-------');
-        console.log(this.msg);
-        console.log(this.$el.outerHTML);
-        console.log('----------------------');
-      },
-      beforeDestroy(){
-        console.log('------beforeDestory-------');
-        console.log(this.msg);
-        console.log(this.$el.outerHTML);
-        console.log('----------------------');
-        clearInterval(this.timer);
-      },
-      destroyed(){
-        console.log('------destoryed-------');
-        console.log(this.timer);
-        console.log('----------------------');
-      },
 
-      template: `<div id="app">{{msg}}</div>`,
-      computed: {
-        abcdefg:() => {
-          console.log('msg')
-        }
-      },
-      watch: {
-        msg:{
-          handler(){
-            console.log("侦听msg的值");
-          },
-          immediate: true
-        }
-      },
-      methods: {
-        
-      }
+      },    
+      created() {},
+      computed: {},
+      watch: {},
+      methods: {}
     })
-    window.vm = vm;
 
   </script>
 </body>
