@@ -6,13 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <script src="./vue.js"></script>
+  <script src="./jquery.js"></script>
 </head>
 
 <body>
   <div id="app">
-    {{msg}}
-    <br>
-    {{msgReverse}}
+    <div class="search-box">
+      <span class="search-area">
+        <input type="text" maxlength="100" v-model="inputValue" @blur="() => {}" @focus="() => {inputFocus=true}"/>
+      </span>
+      <span class="search-button">百度一下</span>
+    </div>
+  <ul v-show="inputFocus && searchResList.length" class="search-list" :style="{border: '1px solid black'}">
+      <li v-for="res in searchResList" @click="handleSearchItem(res)">
+        {{res}}
+      </li>
+    </ul>
   </div>
 
   <script>
@@ -20,46 +29,34 @@
     const vm = new Vue({
       el: '#app',
       data: {
-        msg:"hello i'm shanshan",
-        persons: [
-          {
-            name: "杉杉",
-            age: '18',
-            isActive: true
-          },
-          {
-            name: "成哥",
-            age: '20',
-            isActive: true
-          },
-          {
-            name: "老邓",
-            age: "8",
-            isActive: true
-          },
-          {
-            name: "思彤",
-            age: "23",
-            isActive: true
-          },
-          {
-            name: "小宇",
-            age: '18',
-            isActive: true
-          }
-        ]
+        inputFocus: false,
+        inputValue: '',
+        searchResList: []
       },
       computed:{
-        msgReverse: function(){
-          return this.msg.split('').reverse().join('');
-        },
-        desc:{
-          
+        
+      },
+      watch:{
+        inputValue (newV, oldV){
+          // console.log(newV, oldV);
+          $.ajax({
+            dataType:'jsonp',
+            url: 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+            data:{
+              wd: newV,
+              cb: "vm.searchResult"
+            }
+          })
         }
       },
       methods: {
-        handleClick(index){
-         
+        searchResult(data){
+         console.log(data.s);
+         this.searchResList = data.s;
+        },
+        handleSearchItem(res){
+          console.log(res);
+          this.inputValue = res;
         }
       }
     })
