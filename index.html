@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <script src="./vue.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <!-- <script src="./jquery.js"></script> -->
 </head>
 
@@ -50,57 +50,14 @@
       },
       methods: {
         handleUpload() {
-          console.log(this.name, this.mail);
-          // url, data, options
-          this.$http.post('https://developer.duyiedu.com/vue/setUserInfo', {
-            name: this.name,
-            mail: this.mail
-          })
-            .then(res => {
-              // console.log(res.body);
-              this.msg = res.body.msg;
-            })
-            .catch(error => {
-              // console.log(error);
-              this.msg = error.body.msg;
-            })
+          
+         
         },
         handleShow() {
-          // url options
-          this.$http.get(
-            'https://developer.duyiedu.com/vue/getUserInfo',
-            {
-              params: {
-
-              }
-            }
-          )
-            .then(res => {
-              console.log(res.body);
-              this.showList = res.body.data;
-            })
-            .catch(error => {
-              console.log(error);
-              this.showList = [];
-            })
+          
         },
         handleTest() {
-          this.$http.jsonp(
-            'https://developer.duyiedu.com/vue/jsonp',
-            {
-              jsonp: 'callback',
-              params: {
-              }
-            }
-          )
-            .then(res => {
-              console.log(res.body);
-              this.showList = res.body.data;
-            })
-            .catch(error => {
-              console.log(error);
-              this.showList = [];
-            })
+          
         }
       }
     })
