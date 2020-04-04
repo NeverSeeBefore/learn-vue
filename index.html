@@ -6,21 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <script src="./vue.js"></script>
-  <script src="./jquery.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+  <!-- <script src="./jquery.js"></script> -->
 </head>
 
 <body>
   <div id="app">
-    <div class="search-box">
-      <span class="search-area">
-        <input type="text" maxlength="100" v-model="inputValue" @blur="() => {}" @focus="() => {inputFocus=true}"/>
-      </span>
-      <span class="search-button">百度一下</span>
+    <div class="username">
+      <input type="text" placeholder="username" v-model="name">
     </div>
-  <ul v-show="inputFocus && searchResList.length" class="search-list" :style="{border: '1px solid black'}">
-      <li v-for="res in searchResList" @click="handleSearchItem(res)">
-        {{res}}
-      </li>
+    <div class="mail">
+      <input type="text" placeholder="mail" v-model="mail">
+    </div>
+    <div class="upload-btn" @click="handleUpload">上传</div>
+    <div class="show-btn" @click="handleShow">显示人物信息</div>
+    <div class="show-btn" @click="handleTest">jsonp</div>
+    <ul class="person-list">
+      <li class="person" v-for="person in showList">{{person.name}}--{{person.mail}}</li>
     </ul>
   </div>
 
@@ -29,37 +31,80 @@
     const vm = new Vue({
       el: '#app',
       data: {
-        inputFocus: false,
-        inputValue: '',
-        searchResList: []
+        name: '',
+        mail: '',
+        msg: '',
+        showList: []
       },
-      computed:{
-        
+      computed: {
+
       },
-      watch:{
-        inputValue (newV, oldV){
-          // console.log(newV, oldV);
-          $.ajax({
-            dataType:'jsonp',
-            url: 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
-            data:{
-              wd: newV,
-              cb: "vm.searchResult"
-            }
-          })
+      watch: {
+        msg() {
+          if (this.msg === '') {
+            return
+          }
+          alert(this.msg);
+          this.msg = '';
         }
       },
       methods: {
-        searchResult(data){
-         console.log(data.s);
-         this.searchResList = data.s;
+        handleUpload() {
+          console.log(this.name, this.mail);
+          // url, data, options
+          this.$http.post('https://developer.duyiedu.com/vue/setUserInfo', {
+            name: this.name,
+            mail: this.mail
+          })
+            .then(res => {
+              // console.log(res.body);
+              this.msg = res.body.msg;
+            })
+            .catch(error => {
+              // console.log(error);
+              this.msg = error.body.msg;
+            })
         },
-        handleSearchItem(res){
-          console.log(res);
-          this.inputValue = res;
+        handleShow() {
+          // url options
+          this.$http.get(
+            'https://developer.duyiedu.com/vue/getUserInfo',
+            {
+              params: {
+
+              }
+            }
+          )
+            .then(res => {
+              console.log(res.body);
+              this.showList = res.body.data;
+            })
+            .catch(error => {
+              console.log(error);
+              this.showList = [];
+            })
+        },
+        handleTest() {
+          this.$http.jsonp(
+            'https://developer.duyiedu.com/vue/jsonp',
+            {
+              jsonp: 'callback',
+              params: {
+              }
+            }
+          )
+            .then(res => {
+              console.log(res.body);
+              this.showList = res.body.data;
+            })
+            .catch(error => {
+              console.log(error);
+              this.showList = [];
+            })
         }
       }
     })
+    window.vm = vm;
 
   </script>
 </body>
