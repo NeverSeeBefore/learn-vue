@@ -100,4 +100,30 @@ $watch()
     2. 两个参数
     监听的属性， {handler(){}, deep: true, mmediate: true}
     
+# vue-resource
+  在vue之后引入
+  会在vue上挂在一个$http,其中有网络请求方法方法;
 
+# axios
+
+  axios({}).then()
+  axios(url,{}).then()
+  axios.get(url);
+  ...
+  **并发**
+  axios.all([
+    axios.get(),
+    axios.get(),
+    ...
+  ]).then(axios.spread((get1, get2) => {}))
+  **拦截器**
+  axios.interceptors
+
+  axios.interceptors.request.use((config) => {
+    console.log(config);
+    return config;
+  })
+
+  axios.interceptors.response.use((response) => {
+    console.log(response);
+  })
