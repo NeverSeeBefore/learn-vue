@@ -139,3 +139,33 @@ $watch()
   el -> 获取el.outerHTML  -> 得到模板 => render渲染 -> 替换$el -> 变成真正的el
 
   **template**
+
+# 生命周期
+
+1. new vue()  初始化vue和生命周期，此时只有vue本身有的事件和生命周期函数
+2. 初始化     初始化vue的注入（data, template, computed ,...）
+3. 编译模板    查看el和template 否则等待$mount(el)时查看template，没有template时检查el指向的dom元素，生成template
+4. 挂载 通过render(template)*重新*生成dom，创建$el并替换原来的el
+5. 再data改变时，更新虚拟dom，重新渲染
+6. $destory()   调用后 销毁子组件、接触监听器；
+7. the end
+
+生命周期钩子，是在vm的生命周期内留给使用者的展示身手的时间
+
+1. beforeCreate
+  vm有了自身的属性，
+2. created
+  vm有了用户设置的注入    （发送ajax, 请求数据）
+3. beforeMount
+  模板已经生成，创建真实dom之前
+4. mounted
+  dom已经被挂载了,页面渲染完成  (操作dom)
+5. beforeUpdate
+  数据改变了，即将要更新dom了
+6. updated
+  dom 更新完毕
+7. beforeDestory();
+  即将销毁, 可以清除*定时器*之类的,
+8. destoryed()
+  已经销毁
+
