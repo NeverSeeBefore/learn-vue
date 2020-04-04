@@ -10,35 +10,9 @@
 
 <body>
   <div id="app">
-
-    <span>数组</span>
-    <ul>
-      <li v-for="(person, index) in persons">{{person.name}}--{{person.age}}---{{index}}</li>
-    </ul>
-    <span>对象</span>
-    <ul>
-      <template v-for="(value, key, index) in persons[0]">
-        <li>{{key}}--{{value}}</li>
-        <span>--{{index}}</span>
-      </template>
-    </ul>
-    <span>数字</span>
-    <ul>
-      <li v-for="(value, key, index) in 5">{{key}}--{{value}}--{{index}}</li>
-    </ul>
-    <span>字符串</span>
-    <ul>
-      <li v-for="(value, key, index) in persons[0]">{{key}}--{{value}}--{{index}}</li>
-    </ul>
-    <span>列表渲染规则</span>
-    <ul>
-      <li v-for="(person, index) in persons" :key="person.name">
-        {{person.name}}
-        <input type="text">
-        <button @click="handleClick(index)">下移</button>
-      </li>
-    </ul>
-
+    {{msg}}
+    <br>
+    {{msgReverse}}
   </div>
 
   <script>
@@ -46,6 +20,7 @@
     const vm = new Vue({
       el: '#app',
       data: {
+        msg:"hello i'm shanshan",
         persons: [
           {
             name: "杉杉",
@@ -74,11 +49,17 @@
           }
         ]
       },
+      computed:{
+        msgReverse: function(){
+          return this.msg.split('').reverse().join('');
+        },
+        desc:{
+          
+        }
+      },
       methods: {
         handleClick(index){
-          console.log(index);
-          const deleteItem = this.persons.splice(index, 1);
-          this.persons.splice(index + 1, 0, ...deleteItem);
+         
         }
       }
     })

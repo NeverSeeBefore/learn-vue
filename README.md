@@ -45,6 +45,59 @@
 
 # v-for
   列表循环
-  
 
+# v-model
+
+# 计算属性
+  *计算属性会被缓存*;
+  当依赖的数据变化了的时候，会重新设置XXX
+  computed：{
+    XXX:function(){
+      return xxxx...;
+    },
+    XXX2:{
+      get(){  // 相当于直接写成function
+
+      },
+      set(){
+
+      }
+    }
+  }
+# 侦听器
+  > key 两种类型  data中的变量名。或字符串
+  > value 4中类型 字符串、函数、对象、数组
+  watch:{
+    // 字符串类类型，执行methods里的方法
+    person: 'handlePerson' //
+    person: function(newValue, oldValue){
+      // msg的值改变时执行
+    }
+    // 写成对象的形式
+    person: {
+      handler: function 
+      deep: Boolean //是否深度监听，即如果是对象监听每一层
+      immediate：Boolean // 回调将会在侦听开始之后立刻被调用。而不是等待侦听的数据更改后才会调用。
+    }
+    // 写成数组
+    person: [
+      'msgChange'
+      function () {},
+      {
+        handler () {},
+        deep: true,
+        immediate: true
+      }
+    ]
+    // 监听对象中的某个属性
+    'person.name': function() {};
+  }
+
+$watch()
+  参数
+    1. 三个参数
+    监听的属性，执行的方法，配置的选项（deep: true, mmediate: true）
+    2. 两个参数
+    监听的属性， {handler(){}, deep: true, mmediate: true}
+    
 
