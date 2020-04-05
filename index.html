@@ -13,7 +13,8 @@
 <body>
   <div id="app">
 
-    <my-comp>{{name}}</my-comp>
+    <button v-for="page in pages" :key="pages.id" @click="compName = page.comp">{{page.name}}</button>
+    <component :is="compName"></component>
 
   </div>
   
@@ -36,7 +37,7 @@
     const vm = new Vue({
       el: '#app',
       data:{
-        name:'father'
+        compName:'post'
       }
     })
 

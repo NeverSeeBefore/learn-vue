@@ -291,4 +291,15 @@ $watch()
   </template>
   v-slot 简写 #
 
+# 动态组件
+  <component is="comp-a"></component>
+  
+  *keep-alive* 包裹的组件会被缓存，而不会销毁，下次展示出来时，还是原样而不是重新渲染
+  <keep-alive>
+    <component is="comp-a"></component>
+  </keep-alive>
+
+  *keep-alive* *生命周期函数*
+  activated     激活时触发
+  deactivated   被停用时触发
 
