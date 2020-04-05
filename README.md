@@ -1,15 +1,16 @@
-
-
 # v-bind
 
   v-bind:a="type"  // 属性a，值为data.type
   v-bind:[attr]="type"  // 属性data.attr，值为data.type
-  - 简写v-bind: -> :
-  - 动态绑定 v-bind:[attr]="value"
-  - 同时多个属性
+
+  + 简写v-bind: -> :
+  + 动态绑定 v-bind:[attr]="value"
+  + 同时多个属性
+
     v-bind="{name: xx, age: 18, height='163cm'}"
     > 此时不能用来绑定class和style
-  - 绑定class和style时 值 可以使用对象或数组
+
+  + 绑定class和style时 值 可以使用对象或数组
     - class
       - <div :class="{red: true, big: isBig}"></div>
       - <div :class="[isRed ? res : '', 'big']"></div>
@@ -17,19 +18,24 @@
     - style
       - <div :style="{color: 'red', width: '100px'}"></div>
       - <div :style="[stylesObj1, stylesObj2]"></div>
-  - modifier 修饰符 v-bind.xx
+  + modifier 修饰符 v-bind.xx
+
     .camel  将 view-box 转换成 viewBox  即转换成小驼峰格式(html的特性：将属性中大写字母转换成小写字母,.camel就是处理这个问题的)
     .prop 用于绑定dom属性 让这个属性成为dom的属性(:text-content.prop="abc", 此时发挥dom.textContent的作用)
     .sync
+
 # v-on
+
   绑定属性
   v-on:click="addCounter"
   v-on:click="addCounter(5)" //传入参数
   v-on:click="addCounter(5, $event)" //传入参数，和原事件对象
-  - v-on[event]=""  //动态绑定事件
-  - v-on="{click: addConuner, ...}" //同时绑定多个事件，此时不能传参
-  - 简写 v-on -> @
-  - 修饰符
+
+  + v-on[event]=""  //动态绑定事件
+  + v-on="{click: addConuner, ... }" //同时绑定多个事件，此时不能传参
+  + 简写 v-on -> @
+  + 修饰符
+
     .stop     // 阻止冒泡
     .prevent  // 阻止默认事件
     .capture  // 捕获事件
@@ -41,17 +47,20 @@
     > ↓↓↓↓↓按键修饰符↓↓↓↓↓↓↓
     .esc .enter .13 ...
     > @keyup.caps-lock="" @keyup.left=""
+
     - 设置别名  Vue.config.KeyCodes.v = 36;
 
 # v-for
+
   列表循环
 
 # v-model
 
 # 计算属性
-  *计算属性会被缓存*;
+  *计算属性会被缓存*; 
   当依赖的数据变化了的时候，会重新设置XXX
   computed：{
+
     XXX:function(){
       return xxxx...;
     },
@@ -63,11 +72,15 @@
 
       }
     }
+
   }
+
 # 侦听器
+
   > key 两种类型  data中的变量名。或字符串
   > value 4中类型 字符串、函数、对象、数组
   watch:{
+
     // 字符串类类型，执行methods里的方法
     person: 'handlePerson' //
     person: function(newValue, oldValue){
@@ -91,41 +104,54 @@
     ]
     // 监听对象中的某个属性
     'person.name': function() {};
+
   }
 
 $watch()
   参数
+
     1. 三个参数
+
     监听的属性，执行的方法，配置的选项（deep: true, mmediate: true）
+
     2. 两个参数
+
     监听的属性， {handler(){}, deep: true, mmediate: true}
     
+
 # vue-resource
+
   在vue之后引入
-  会在vue上挂在一个$http,其中有网络请求方法方法;
+  会在vue上挂在一个$http, 其中有网络请求方法方法; 
 
 # axios
 
   axios({}).then()
-  axios(url,{}).then()
-  axios.get(url);
-  ...
+  axios(url, {}).then()
+  axios.get(url); 
+  ... 
   **并发**
   axios.all([
+
     axios.get(),
     axios.get(),
     ...
+
   ]).then(axios.spread((get1, get2) => {}))
   **拦截器**
   axios.interceptors
 
   axios.interceptors.request.use((config) => {
+
     console.log(config);
     return config;
+
   })
 
   axios.interceptors.response.use((response) => {
+
     console.log(response);
+
   })
 
 # template
@@ -153,19 +179,99 @@ $watch()
 生命周期钩子，是在vm的生命周期内留给使用者的展示身手的时间
 
 1. beforeCreate
+
   vm有了自身的属性，
+
 2. created
+
   vm有了用户设置的注入    （发送ajax, 请求数据）
+
 3. beforeMount
+
   模板已经生成，创建真实dom之前
+
 4. mounted
-  dom已经被挂载了,页面渲染完成  (操作dom)
+
+  dom已经被挂载了, 页面渲染完成  (操作dom)
+
 5. beforeUpdate
+
   数据改变了，即将要更新dom了
+
 6. updated
+
   dom 更新完毕
+
 7. beforeDestory();
-  即将销毁, 可以清除*定时器*之类的,
+
+  即将销毁, 可以清除*定时器*之类的, 
+
 8. destoryed()
+
   已经销毁
 
+# 组件
+
+## 全局组件 
+
+  Vue.component('component-name', {
+
+    template:`
+      <div>ccccc</div>
+    `,
+    props: ['videoList', 'abc']
+
+  })
+  组件名：使用*大驼峰式*或者*连字符式*
+  props: 如果是小驼峰式属性名，应该使用连字符格式在行间传递
+
+        v-bind=obj 会把obj的所有属性传入组件
+
+  **props: 验证**
+
+    props: {
+      videolist: Array,
+      abc: String
+    }
+    props: {
+      videolist: {
+        type: Array,          //类型
+        required: true,       // 必穿
+        default: function(){  // 默认值，引用类型需要用工厂函数返回，防止变量污染
+          reruen [1,2]
+        }，
+        validator: function(){ // 自定义验证函数， 返回Boolean
+
+        }
+      }
+      abc: String             
+    }
+
+  **单向数据流**
+  父组件的prop改变可以影响子组件，但反过来则不行
+  - 如果是数组、对象，子组件更改会影响到父组件，所以不要改变父组件传递进来的数据
+  - 如果非要改变，把传进来的数据深度克隆一下。或者使用计算属性
+  props: {array: Array},
+  data(){
+    return {
+      myArray: [...this.array]
+    }
+  }
+  **非prop特性**
+  没有被注册的属性
+  会被落到元素行间，会*替换*已有特性
+  其中 *class style 会合并已有的特性*
+  inheritAttrs: false  // 不继承非prop特性
+  mounted 时， 通过this.$attrs 获取非prop特性
+
+  **组件通讯**
+  *$emit*
+  $emit('event-name', arg)
+  event-name 最好使用连字符格式
+  *$listeners*
+  绑定在改组件上的事件列表， 
+  v-on="$listeners" // 一次性绑定所有事件，
+  跨组件双向数据绑定
+  v-model="abc"
+  @update.sync="abc"
+  
