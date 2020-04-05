@@ -349,3 +349,10 @@ $watch()
   this.$bus.$emit(eventName, data)
 
   vuex
+
+# 混入
+  初始化选项 mixins: [mix1, mix2]
+  数据冲突时以组件数据为主
+  钩子函数冲突时， 将合并为一个数组，都会执行 限制性混入的函数
+  对象键名冲突是 使用组件内的值
+  全局混入  Vue.mixin(mixinObj),所有组件都会被混入
