@@ -13,37 +13,30 @@
 <body>
   <div id="app">
 
-    <button-counter poster="http://abc/s/d" title="biaoti"></button-counter>
-    <button-counter :poster="video.poster" :title="video.title"></button-counter>
-    <button-counter></button-counter>
+    <my-comp>{{name}}</my-comp>
 
   </div>
   
   <script>
-    Vue.component('button-counter', {
+    Vue.component('my-comp', {
       template: `
       <div>
-        <span>{{count}}</span>
-        <button @click="count+=1">+1</button>
-        <div>title: {{poster}}</div>
-        <div>poster: {{title}}</div>
-        <hr />
+        XXX
+        <slot></slot>
       </div>
       `,
       data() {
         return {
-          count: 0
+          name: "child"
         }
       },
       props:['poster', 'title']
     })
+
     const vm = new Vue({
       el: '#app',
       data:{
-        video:{
-          poster:"poster in video in data",
-          title:"title in video in data"
-        },
+        name:'father'
       }
     })
 

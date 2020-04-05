@@ -275,3 +275,20 @@ $watch()
   v-model="abc"
   @update.sync="abc"
   
+# 插槽
+  <slot></slot>
+
+  使用的时候
+  <template v-slot:name></template>
+  <template v-slot:default></template>
+  使用组件内的数据
+  <template v-slot:default="slotProps">
+    <div>{{slotProps.user}}</div>
+  </template>
+   结构插槽属性
+  <template v-slot:default="{user}">
+    <div>{{user}}</div>
+  </template>
+  v-slot 简写 #
+
+
