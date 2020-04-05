@@ -303,3 +303,49 @@ $watch()
   activated     激活时触发
   deactivated   被停用时触发
 
+# 处理边界情况
+
+  $root 获取跟实例组件
+  $parent 获取父组件
+
+  $refs   组件上写 ref='name' 组件渲染完毕后this.$refs 中会*有所有的* 使用了ref的组件
+  $on(eventName, eventHandler)      监听事件  
+  $once(eventName, eventHandler)    之监听一次
+  $off(eventName, eventHandler)     取消监听
+  *依赖注入* 构建实例时的属性 provider:{user: 'abc'}  inject: ['user']
+
+  $on('hook:beforeDestory', eventHandler)      监听beforeDestory事件
+
+# 组件通信
+
+  prop
+  父组件传入子组件
+  
+  $emit
+  子组件触发父组件事件传入数据
+
+  v-model="data"   @event="data"
+  双向数据绑定
+
+  $attrs
+  非props属性(本意是传递特性到dom元素上)
+
+  $listeners  (本意是 将事件绑定到组件的子元素上)
+  得到父组件绑定在自己组件身上的事件
+
+  $root
+  $parnet
+  $children
+
+  ref
+  通过 $refs 获取到所有标记了 ref 的组件
+
+  provider inject
+  最好在组件库的编写中使用
+
+  eventBus(事件总线)
+  在Vue的原型上绑定 Vue.prototype.$bus = new Vue();
+  this.$bus.$on(evnetName, eventHandler)
+  this.$bus.$emit(eventName, data)
+
+  vuex
