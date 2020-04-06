@@ -403,3 +403,8 @@ $watch()
       filter: function(){}
     }
   })
+
+# 脚手架
+  npm install -g @vue/cli
+
+  vue serve // 启动项目
