@@ -411,3 +411,7 @@ $watch()
 
   vue create project-name
   vue ui 图形化创建项目
+
+# 函数式组件
+  functional: true    选项functional的值为true 是函数式组件
+  没有状态、生命周期函数
