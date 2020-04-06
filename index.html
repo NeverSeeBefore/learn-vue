@@ -13,31 +13,84 @@
 <body>
   <div id="app">
 
-    <button v-for="page in pages" :key="pages.id" @click="compName = page.comp">{{page.name}}</button>
-    <component :is="compName"></component>
+    <input type="text" v-focus>
 
   </div>
-  
+
   <script>
-    Vue.component('my-comp', {
-      template: `
-      <div>
-        XXX
-        <slot></slot>
-      </div>
-      `,
-      data() {
-        return {
-          name: "child"
+    Vue.directive('focus', {
+      bind() { console.log('bind', el) },          //指令绑定在元素上时执行，只执行一次
+      inserted() {      // 被插入时调用
+        // console.log(el);
+        el.focus()
+      },
+      update() { // 其绑定的数据发生变化时执行，发生在子节点更新之前调用
+      },
+      componentUpdated() { // 所在组件的子节点全部更新之后执行
+      },
+      unbind() { // 被绑定的元素被移除时执行
+      }
+    })
+    // v-show
+    Vue.directive('myshow', {
+      bind(el, binding) {
+        const { value } = binding;
+        const display = value ? '' : 'none';
+        el.style.display = display;
+      },
+      update(el, binding) {
+        const { value } = binding;
+        const display = value ? '' : 'none';
+        el.style.display = display;
+      }
+    })
+    // v-model
+    Vue.directive('mymodel', {
+      // 通过绑定的元素设置value
+      // 触发input时，更改绑定的元素
+      // 更改数据时，同步value
+      bind(el, binding, vnode) {
+        const vm = vnode.context;
+        const { value, expression } = binding;
+        el.value = value;
+        el.oninput = function () {
+          const inputValue = el.value;
+          vm[expression] = inputValue;
         }
       },
-      props:['poster', 'title']
+      update(el, binding) {
+        const { value } = binding;
+        el.value = value;
+      }
     })
+    // 截取input的文字
+    // v-slice:[slicenum].number
+    Vue.directive('mymodel', (el, binding, vnode) => {
+      const vm = vnode.context;
+      let { value, expression, args, modifiers } = binding;
+      args = args || 5
+      if (modifiers.number) {
+        value.replace(/[^0-9]/g, '')
+      }
+      el.value = value.slice(0, args);
+      vm[expression] = value.slice(0, args);
+      el.oninput = function () {
+        const inputValue = el.value;
+        if (modifiers.number) {
+          inputValue.replace(/[^0-9]/g, '')
+        }
+        vm[expression] = inputValue.slice(0, args);
+        el.value = inputValue.slice(0, args);
+
+      }
+    })
+
+
 
     const vm = new Vue({
       el: '#app',
-      data:{
-        compName:'post'
+      data: {
+        compName: 'post'
       }
     })
 

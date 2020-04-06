@@ -356,3 +356,38 @@ $watch()
   钩子函数冲突时， 将合并为一个数组，都会执行 限制性混入的函数
   对象键名冲突是 使用组件内的值
   全局混入  Vue.mixin(mixinObj),所有组件都会被混入
+
+# 自定义指令
+  全局自定义指令
+  Vue.directive('focus', {
+      bind() { console.log('bind', el) },          //指令绑定在元素上时执行，只执行一次
+      inserted() {      // 被插入时调用
+        // console.log(el);
+        el.focus()        
+      },
+      update(){ // 其绑定的数据发生变化时执行，发生在子节点更新之前调用
+      },
+      componentUpdated(){ // 所在组件的子节点全部更新之后执行
+      },
+      unbind(){ // 被绑定的元素被移除时执行
+      }
+    })
+  局部自定义指令
+  new Vue({
+    directives:{
+      
+    }
+  })
+  钩子函数的参数
+    el
+    binding
+      name
+      value
+      expression
+      args
+      modifiers
+      rawName
+      def
+    vnode
+    oldVnode
+    
