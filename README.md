@@ -390,4 +390,16 @@ $watch()
       def
     vnode
     oldVnode
-    
+
+  当指令只关心bind和update时，directive 第二的参数可以简写成函数
+
+# 过滤器
+  {{ content | filter | filterB(arg)}}
+  Vue.filter('filter', (value) => { /* ... */return value})
+  Vue.filter('filterB', (value, arg) => { /* ... */return value})
+
+  new Vue({
+    filters: {
+      filter: function(){}
+    }
+  })
