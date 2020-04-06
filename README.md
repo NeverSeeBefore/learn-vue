@@ -408,3 +408,6 @@ $watch()
   npm install -g @vue/cli
 
   vue serve // 启动项目
+
+  vue create project-name
+  vue ui 图形化创建项目
