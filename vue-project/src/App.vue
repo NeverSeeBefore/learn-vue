@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <div class="nav-box">
-      <div class="logo">渡一教育</div>
+      <!-- <router-link to="/" exact tag="div" class="logo">渡一教育</router-link> -->
+      <div class="logo" @click="handleClick">渡一教育</div>
       <div class="nav-list">
         <router-link to="/" exact tag="a">首页</router-link>
         <router-link to="/learn" tag="a">课程学习</router-link>
@@ -16,6 +17,18 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: 'app',
+  methods:{
+    handleClick() {
+      // console.log(this.$router);
+      // console.log(this.$route);
+      this.$router.push('/home')
+    }
+  }
+}
+</script>
 
 <style scoped>
 html,

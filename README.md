@@ -435,3 +435,25 @@ $watch()
     router:router
   })
   6. 页面使用route-view组件 router-link组件
+
+# 使用了VueRouter的Vue实例会被注入 **$router,$route**
+
+  $route 当前路由信息，只读
+
+  $route.path
+  $route.fullPath
+  $route.params
+  $route.query
+  $route.hash
+  $route.matched
+  $route.name
+  $route.redirectFrom
+
+  $router 路由操作
+
+  this.$router.push('/home')
+  this.$router.replace('/home')
+  this.$router.go(整数)
+  this.$router.push('/home')
+
+# 动态路由

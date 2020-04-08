@@ -4,7 +4,7 @@ import VueRouter from 'vue-router';
 import Home from "./views/Home";
 // import Student from "./views/Student";
 // import Learn from "./views/Learn";
-import Activity from "./views/Activity";
+// import Activity from "./views/Activity";
 // import About from "./views/About";
 
 Vue.use(VueRouter);
@@ -12,7 +12,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    redirect: Home,
+    redirect: '/home',
     // alias: '/'
   },{
     path: '/home',
@@ -28,25 +28,25 @@ const routes = [
     component: () => import('./views/Student')
   },
   {
-    path: '/about',
-    component: () => import('./views/About')
+    path: '/question/:id',
+    component: () => import('./views/Question')
   },
   {
     path: '/activity',
-    // component: () => import('./views/Activity'),
+    component: () => import(/* webpackThunkName: 'academic' */'./views/Activity'),
     // redirect: '/activity/academic',
-    // redirect: {name: 'academic'},
-    redirect: (to) => {
-      // console.log(to);
-      return{
-        name: 'academic'
-      }
-    },
+    redirect: {name: 'academic'},
+    // redirect: (to) => {
+    //   // console.log(to);
+    //   return{
+    //     name: 'academic'
+    //   }
+    // },
     children:[
       {
         name: 'academic',
         path: 'academic',
-        component: () => import('./views/Academic')
+        component: () => import(/* webpackThunkName: 'academic' */'./views/Academic')
       },
       {
         name: 'personal',
