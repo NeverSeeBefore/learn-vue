@@ -1,32 +1,45 @@
 <template>
   <div id="app">
-    <HelloWorld :level="1">标题</HelloWorld>
-    <button @click="handleAsyne">加载异步组件</button>
-    <async-comp v-if="show"></async-comp>
-
+    <div class="nav-box">
+      <div class="logo">渡一教育</div>
+      <div class="nav-list">
+        <router-link to="/" exact tag="a">首页</router-link>
+        <router-link to="/learn" tag="a">课程学习</router-link>
+        <router-link to="/about" tag="a">关于</router-link>
+        <router-link to="/activity" tag="a">社区</router-link>
+        <router-link to="/student" tag="a">学员展示</router-link>
+      </div>
+    </div>
+    <div class="container">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld,
-  
-    // AsyncComp: () => import('./components/AsycnComp')
-    AsyncComp: () => import('./components/AsycnComp')
-  },
-  data(){
-    return{
-      show: false
-    }
-  },
-  methods:{
-    handleAsyne(){
-      this.show = !this.show
-    }
-  }
+<style scoped>
+html,
+body{
+  margin: 0;
+  padding: 0;
 }
-</script>
+.nav-box{
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+  line-height: 60px;
+  background: #3385ff;
+  padding: 0 40px;
+}
+.nav-box .logo{
+  color: #fff;
+}
+.nav-box .nav-list a{
+  text-decoration: none;
+  margin-left: 20px;
+  color: #fff;
+}
+a.router-link-active{
+  font-weight: bolder;
+}
+</style>

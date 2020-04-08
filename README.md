@@ -423,3 +423,15 @@ $watch()
   *webpackChunkName 相同的组件会同时请求*
   AsyncComp1: () => import(/* webpackChunkName: "async" */'./components/AsycnComp1')
   AsyncComp2: () => import(/* webpackChunkName: "async" */'./components/AsycnComp2')
+
+# VueRouter
+  1. npm install vue-router
+
+  // main.js
+  2. import VueRouter from 'vue-router'
+  3. Vue.use(VueRouter);
+  4. const router = new VueRouter({routes: [{path:'',component:Comp},{},{}]})
+  5. new Vue({
+    router:router
+  })
+  6. 页面使用route-view组件 router-link组件
