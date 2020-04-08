@@ -415,3 +415,11 @@ $watch()
 # 函数式组件
   functional: true    选项functional的值为true 是函数式组件
   没有状态、生命周期函数
+  直接使用render生成dom
+
+#  异步加载
+  *异步加载*
+  AsyncComp: () => import('./components/AsycnComp')
+  *webpackChunkName 相同的组件会同时请求*
+  AsyncComp1: () => import(/* webpackChunkName: "async" */'./components/AsycnComp1')
+  AsyncComp2: () => import(/* webpackChunkName: "async" */'./components/AsycnComp2')
