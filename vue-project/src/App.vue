@@ -13,6 +13,7 @@
     </div>
     <div class="container">
       <router-view></router-view>
+      <router-view name='name1'></router-view>
     </div>
   </div>
 </template>

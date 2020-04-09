@@ -25,10 +25,19 @@ const routes = [
   },
   {
     path: '/student',
-    component: () => import('./views/Student')
+    components: {
+      default: () => import('./views/Student'),
+      name1: () => import('./views/Student'),
+      // name2: () => import('./views/Student')
+    }
   },
   {
     path: '/question/:id',
+    // props: true, // 将路由信息的params设为属性传入
+    props: {
+      
+    }, 
+
     component: () => import('./views/Question')
   },
   {

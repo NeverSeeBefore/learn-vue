@@ -7,6 +7,9 @@
 
 <script>
 export default {
+  // props:{
+    // id: [String, Number]
+  // },
   data() {
     return {
       id: null
