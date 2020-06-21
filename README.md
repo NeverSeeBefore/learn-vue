@@ -457,3 +457,61 @@ $watch()
   this.$router.push('/home')
 
 # 动态路由
+
+/name/:id
+
+
+# vuex
+npm install vuex --save
+import vuex from 'vuex
+
+## state 相当与data
+import {mapState} from 'vuex';
+mapState['count'];  返回计算属性
+mapState({
+  storeCount: 'count'  // 起别名
+  storeCount: state => state.count  // 对数据进一步操作
+})
+
+## getters  相当于computed
+// store.js
+getters: {
+  doubelCount(state){
+    returen state.count * 2
+  }
+}
+import {mapGetters} from 'vuex';
+mapGetters(['countAdd', 'countDouble'])
+## mutations 操控数据的函数
+**不能写异步代码**
+通过commit触发
+
+// store.js
+mutations: {
+  countIncrement(state, {num}){
+    state.count += num || 1;
+  },
+}
+//component.vue
+this.$store.commit('countIncrement', payload)
+this.$store.commit('countIncrement', {num: Math.random()})
+this.$store.commit({ //  整个对象会被传入payload
+  type: 'countIncrement',
+  num: Math.random()
+})
+import {mapMutations} from 'vuex';
+mapMutations(['countIncrement', ...])
+## actions 异步操作数据
+**可以写异步代码**
+通过dispatch触发
+// store.js
+actions: {
+  countIncrease: (context, payload) => {
+    return new Promise((reslove, reject) => {
+      setTimeout(() => {
+        context.commit(mutationTypes.COUNT_INCREMENT, payload);
+        reslove()
+      }, 1000);
+    })
+  }
+}
